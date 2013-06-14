@@ -6,7 +6,9 @@ VoltageSensor::VoltageSensor(int pin_p) : Sensor(pin_p, true), R1(0.0),
 									batteryVoltage(0.0),
 									currentVoltage(0.0)
 {
-	
+	//Void reads
+	analogRead(pin);
+	analogRead(pin);
 
 }
 
@@ -21,5 +23,11 @@ VoltageSensor::~VoltageSensor() {}
 
 bool VoltageSensor::trigger()
 {
-	
+	int val = analogRead(pin);
+
+	Serial.print("VOLT,");
+	Serial.print(val);
+	Serial.print("\n");
+
+	return true;
 }

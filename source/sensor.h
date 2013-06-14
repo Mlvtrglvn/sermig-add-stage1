@@ -11,7 +11,7 @@ class Sensor {
 
 		virtual bool trigger() = 0;
 
-	private:
+	protected:
 		double lastValue;
 		unsigned int lastTime;
 		bool valid;
