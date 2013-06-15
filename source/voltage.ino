@@ -65,8 +65,8 @@ bool VoltageSensor::trigger()
 	i_val = analogRead(ipin);
 	i_val = analogRead(ipin);
 
-	batteryVoltage = double(v_val) / partitionRatio;
-	batteryCurrent = double(i_val) / Rminus;
+	batteryVoltage = double(v_val) * 5.0 / (1023 * partitionRatio);
+	batteryCurrent = double(i_val) * 5.0 /(1023 *  Rminus);
 	valid = true;
 
 	Serial.print("VOLT,");
