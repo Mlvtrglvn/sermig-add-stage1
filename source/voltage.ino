@@ -74,6 +74,8 @@ bool VoltageSensor::trigger()
 	Serial.print(",");
 	Serial.print(batteryCurrent);
 	Serial.print("\n");
+	Serial.println(v_val);
+	Serial.println(i_val);
 
 	return true;
 }
