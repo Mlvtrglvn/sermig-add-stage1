@@ -1,0 +1,45 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[italian]{babel}
+\usepackage[a4paper]{geometry}
+\usepackage{multicol}
+
+\geometry{margin=1in, top=-0.5cm, bottom=-0.5cm}
+
+\usepackage{lastpage}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{color}
+
+\pagestyle{fancy}
+\setlength{\headheight}{132pt} %Below Page X of Y
+\setlength{\textheight}{22cm}
+\fancyheadoffset[L]{1in}
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{3pt}
+\chead{
+	\includegraphics[scale=1.1]{./soluzioniSviluppo.jpg}\\
+}
+
+\cfoot{\begin{multicols}{2}
+	\begin{flushright}
+		\includegraphics[scale=0.25]{./pace.jpg}\\
+	\end{flushright}
+	\columnbreak
+	\begin{flushleft}
+		\textcolor{blue}{
+			Piazza Borgo Dora 61\\
+			10152 Torino\\
+			Tel. 011 4368566\\
+			Fax: 011 5215571\\
+			\url{www.sermig.org}
+		}
+	\end{flushleft}
+\end{multicols}}
+
+
+\begin{document}
+Hello world!
+\end{document}
+
