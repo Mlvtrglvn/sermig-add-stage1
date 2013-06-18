@@ -76,9 +76,11 @@ bool VoltageSensor::trigger()
 	int i_val;
 	
 	v_val = analogRead(vpin);
+	delay(1000); // Wait 1s in order to charge the ADC multiplexer capacitors due to the high impedence in input
 	v_val = analogRead(vpin);
 
 	i_val = analogRead(ipin);
+	delay(1000); // As above
 	i_val = analogRead(ipin);
 
 	// Computations of the actual values, given the various resistance and ratio parameter
