@@ -21,6 +21,11 @@
 
 #include "sensor.h"
 
+/*!
+	 Constructor. Assigns the pin information passed as parameter.
+	 \param[in] pin_p Pin to be read
+	 \param[in] analog_p true if it is an analog pin
+*/
 Sensor::Sensor(int pin_p, bool analog_p): lastValue(0.0), lastTime(0.0), valid(false),
 																					pin(pin_p), analog(analog_p)
 {

@@ -21,6 +21,11 @@
 #include "voltage.h"
 #include "sensor.h"
 
+/*!
+	Empty constructor, can receive just the pins info
+	\param[in] vpin_p Battery voltage input analog pin
+	\param[in] ipin_p Voltage point for current computation pin
+*/
 VoltageSensor::VoltageSensor(int vpin_p, int ipin_p) : Sensor(vpin_p, true), vpin(0), 
 									ipin(1), R1(0.0),
 									R2(0.0), Rminus(0.0),
@@ -38,6 +43,10 @@ VoltageSensor::VoltageSensor(int vpin_p, int ipin_p) : Sensor(vpin_p, true), vpi
 /*!
 	Standard constructor with parameter assignment
 	\param[in] vpin_p Battery voltage input analog pin
+	\param[in] ipin_p Voltage point for current computation pin
+	\param[in] R1p Value of R1
+	\param[in] R2p Value of R2
+	\param[in] Rminusp Value of the small resistance used for current computation
 */
 VoltageSensor::VoltageSensor(int vpin_p, int ipin_p, double R1p, double R2p, double Rminusp):
 	Sensor(vpin_p, true), vpin(vpin_p), ipin(ipin_p), R1(R1p), R2(R2p), Rminus(Rminusp),
@@ -49,11 +58,18 @@ VoltageSensor::VoltageSensor(int vpin_p, int ipin_p, double R1p, double R2p, dou
 	analogRead(ipin);
 	analogRead(ipin);
 
-	updateCoefficients();	
+	updateCoefficients(); // Update the partition ratio	
 }
 
+/*!
+	Empty destructor
+*/
 VoltageSensor::~VoltageSensor() {}
 
+/*
+	Trigger the measurement of both battery voltage and current and output them to the serial.
+	\warning{May take time}
+*/
 bool VoltageSensor::trigger()
 {
 	int v_val;
@@ -65,10 +81,13 @@ bool VoltageSensor::trigger()
 	i_val = analogRead(ipin);
 	i_val = analogRead(ipin);
 
+	// Computations of the actual values, given the various resistance and ratio parameter
+	// and the dynamic of the analog pins
 	batteryVoltage = double(v_val) * 5.0 / (1023 * partitionRatio);
 	batteryCurrent = double(i_val) * 5.0 /(1023 *  Rminus);
 	valid = true;
 
+	// Output to the serial (sort of CSV lines)
 	Serial.print("VOLT,");
 	Serial.print(batteryVoltage);
 	Serial.print(",");

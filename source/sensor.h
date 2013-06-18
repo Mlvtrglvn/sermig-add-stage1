@@ -32,12 +32,12 @@ class Sensor {
 		virtual bool trigger() = 0;
 
 	protected:
-		double lastValue;
-		unsigned int lastTime;
-		bool valid;
+		double lastValue; //<! Last value collected by the sensor
+		unsigned int lastTime; //<! Absolute time the sensor collected the last item \warning{NOT used at the moment}
+		bool valid; //!< true if the values are valid (false when the class is instantiated)
 
-		int pin;
-		bool analog;
+		int pin; //!< Arduino pin at which data must be read
+		bool analog; //!< true if the pin is an analog pin of the Arduino board
 };
 
 

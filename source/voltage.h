@@ -24,6 +24,10 @@
 
 #include "sensor.h"
 
+/*!
+ * Class of the battery voltage sensor based on the voltage divider.
+ *
+ * */
 class VoltageSensor: public Sensor {
 	public:
 		VoltageSensor(int vpin_p = 0, int ipin_p = 1);
@@ -35,10 +39,10 @@ class VoltageSensor: public Sensor {
 	private:
 		int vpin; //!< Pin to receive battery voltage from voltage divider
 		int ipin; //!< Pin to receive voltage used to compute current (resitance toward battery minus)
-		double R1, R2, Rminus;
-		double batteryVoltage;
-		double batteryCurrent;
-		double partitionRatio;
+		double R1, R2, Rminus; //!< Values of the resistors put in the circuit
+		double batteryVoltage; //!< Battery voltage
+		double batteryCurrent; //!< Current given by the battery
+		double partitionRatio; //!< Ratio of the voltage divider computed from the resistance values
 
 		void updateCoefficients();
 
