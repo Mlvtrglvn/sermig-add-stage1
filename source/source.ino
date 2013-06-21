@@ -19,15 +19,20 @@
 */
 
 #include "voltage.h"
+#include "lm35.h"
 
 VoltageSensor *v;
+TemperatureLm35 *t0;
+
 
 const int BATTERY_PIN = 0;
 const int CURRENT_PIN = 1;
+const int TEMPERATURE_PIN = 2;
 
 void setup()
 {
 	v = new VoltageSensor(BATTERY_PIN, CURRENT_PIN, 470.0e3, 330.0e3, 0.1);
+	t0 = new TemperatureLm35(TEMPERATURE_PIN);
 
   Serial.begin(9600); 
   Serial.println("Hello world!"); 
@@ -36,6 +41,7 @@ void setup()
 void loop()
 {
 	v->trigger();
+	t0->trigger();
 
 	delay(2000);
 }
