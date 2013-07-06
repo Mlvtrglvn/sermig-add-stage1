@@ -26,11 +26,15 @@
 	\param[in] vpin_p Battery voltage input analog pin
 	\param[in] ipin_p Voltage point for current computation pin
 */
-TimerPump::TimerPump(int pin_p) : Sensor(pin_p, false)
+TimerPump::TimerPump(int pin_p) : Sensor(pin_p, false), timer_value(LOW)
 {
-	pinMode(pin, OUTPUT);
+	pinMode(0, OUTPUT);
+	pinMode(7, OUTPUT);
 
-	digitalWrite(pin, LOW);
+
+	//digitalWrite(pin, LOW);
+	digitalWrite(0, LOW);
+	digitalWrite(7, LOW);
 }
 
 /*!
@@ -44,14 +48,21 @@ TimerPump::~TimerPump() {}
 */
 bool TimerPump::trigger()
 {
-	int timeInterval = 60000;
-	static int value = HIGH;
 
-	digitalWrite(pin, value);
+	digitalWrite(0, timer_value);
+	digitalWrite(7, timer_value);
 
-	(value == HIGH) ? value = LOW, Serial.println("PUMP ON\n") : value = HIGH, Serial.println("PUMP OFF\n");
+	if(timer_value == HIGH) {
+		Serial.println("PUMP ON");
+		timer_value = LOW;
+		}
 
-	delay(timeInterval);
+	else {
+		Serial.println("PUMP OFF");
+		timer_value = HIGH;
+	}
+
+
 	return true;
 }
 

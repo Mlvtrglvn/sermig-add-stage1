@@ -35,6 +35,9 @@ class TimerPump: public Sensor {
 
 		bool trigger();
 
+
+	private:
+		int timer_value;
 };
 
 #endif

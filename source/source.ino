@@ -46,5 +46,12 @@ void loop()
 {
 	v->trigger();
 	p->trigger();
+
+	digitalWrite(0, LOW);
+
 	delay(1000);
+	digitalWrite(0, HIGH);
+	delay(1000);
+
+	delay(10000);
 }
