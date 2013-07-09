@@ -22,22 +22,22 @@
 #ifndef TIMERPUMP_H
 #define TIMERPUMP_H
 
-#include "sensor.h"
+#include "actuator.h"
 
 /*!
- * Class of the battery voltage sensor based on the voltage divider.
+ * TimerPump is the class representing the timer control via the relais.
+ * It implements the logic used to control the relais.
  *
+ * \warning The class must be completed with proper logic and a control strategy for the timer
  * */
-class TimerPump: public Sensor {
+class TimerPump: public Actuator {
 	public:
-		TimerPump(int pin_p = 0);
+		TimerPump(int pin_p = 0, int initial_value = LOW);
 		virtual ~TimerPump();
 
 		bool trigger();
 
-
-	private:
-		int timer_value;
+		// All other attributes are inherithed from Actuator
 };
 
 #endif

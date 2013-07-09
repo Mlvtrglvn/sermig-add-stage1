@@ -19,22 +19,15 @@
 */
 
 #include "timer_pump.h"
-#include "sensor.h"
+#include "actuator.h"
 
 /*!
-	Empty constructor, can receive just the pins info
-	\param[in] vpin_p Battery voltage input analog pin
-	\param[in] ipin_p Voltage point for current computation pin
+	Constructor, simply call base class constructor
+	\param[in] pin_p Pin of the control line of the relais
+	\param[in] initial_value First value to be given to the relais (LOW opens, HIGH closes)
 */
-TimerPump::TimerPump(int pin_p) : Sensor(pin_p, false), timer_value(LOW)
+TimerPump::TimerPump(int pin_p, int initial_value) : Actuator(pin_p, initial_value)
 {
-	pinMode(0, OUTPUT);
-	pinMode(7, OUTPUT);
-
-
-	//digitalWrite(pin, LOW);
-	digitalWrite(0, LOW);
-	digitalWrite(7, LOW);
 }
 
 /*!
@@ -43,25 +36,25 @@ TimerPump::TimerPump(int pin_p) : Sensor(pin_p, false), timer_value(LOW)
 TimerPump::~TimerPump() {}
 
 /*
-	Trigger the measurement of both battery voltage and current and output them to the serial.
-	\warning{May take time}
+	Trigger a check of the status of the relais, eventually changing its value
 */
 bool TimerPump::trigger()
 {
 
-	digitalWrite(0, timer_value);
-	digitalWrite(7, timer_value);
 
-	if(timer_value == HIGH) {
-		Serial.println("PUMP ON");
-		timer_value = LOW;
+	// Test code, just toggles the relains command at each method call
+	if(lastValueGiven == HIGH) {
+		Serial.println("PUMP OFF");
+		lastValueGiven = LOW;
 		}
 
 	else {
-		Serial.println("PUMP OFF");
-		timer_value = HIGH;
+		Serial.println("PUMP ON");
+		lastValueGiven = HIGH;
 	}
 
+
+	digitalWrite(pin, lastValueGiven);
 
 	return true;
 }
